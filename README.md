@@ -22,4 +22,4 @@ npx vite
 ```
 npm run test
 ```
-# maddy-vs-cassie-game
+# maddy-vs-cassie-game-project
