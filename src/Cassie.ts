@@ -1,10 +1,10 @@
-import p5 from "p5";
+import p5 from 'p5';
 import {
-  Bullet
-} from "./Bullets";
+  Bullet,
+} from './Bullets';
 import {
-  Maddy
-} from "./Maddy";
+  Maddy,
+} from './Maddy';
 
 export class Cassie {
   bar: p5.Image;
@@ -37,7 +37,7 @@ export class Cassie {
   gaslightTime: number;
 
   random: p5.Image;
-  
+
   randomPower: boolean;
 
   constructor(
@@ -48,18 +48,16 @@ export class Cassie {
     cassieAtacked: string,
     cassieGaslight: string,
     cassieGun: string,
-    cassieBar: string = "",
-    cassieGaslightB: string = "",
-    cassieGunB: string = "",
-    cassieRandomB: string = "",
-    glitterBullet: string = "",
+    cassieBar: string = '',
+    cassieGaslightB: string = '',
+    cassieGunB: string = '',
+    cassieRandomB: string = '',
+    glitterBullet: string = '',
 
     cassieShield: string,
     randomCassie:string,
 
-
   ) {
-
     this.xPlayer1 = 1360;
     this.xPlayer2 = 635;
     this.y = y;
@@ -88,12 +86,11 @@ export class Cassie {
     this.coolDownGaslight = 0;
     this.gaslightTime = 0;
 
-    this.random= p.loadImage(randomCassie);
-    this.randomPower= false;
+    this.random = p.loadImage(randomCassie);
+    this.randomPower = false;
   }
 
   draw(p: p5, maddy: Maddy) {
-
     switch (this.pose) {
       case 0:
         if (this.player === 1) {
@@ -104,7 +101,7 @@ export class Cassie {
           p.push();
           p.scale(-1, 1);
           p.image(this.poseImg, this.xPlayer2 * -1, this.y);
-          p.pop()
+          p.pop();
         }
 
         break;
@@ -117,15 +114,12 @@ export class Cassie {
           p.push();
           p.scale(-1, 1);
           p.image(this.atackedImg, this.xPlayer2 * -1, this.y);
-          p.pop()
+          p.pop();
         }
 
-
-        //if (p.frameCount % 60 === 0) this.atackedAnimationTime++;
+        // if (p.frameCount % 60 === 0) this.atackedAnimationTime++;
 
         if (this.atackedAnimationTime === 3) this.pose = 0;
-
-
 
         break;
 
@@ -137,9 +131,9 @@ export class Cassie {
           p.push();
           p.scale(-1, 1);
           p.image(this.gaslightImg, this.xPlayer2 * -1, this.y);
-          p.pop()
+          p.pop();
         }
-       // if (p.frameCount % 60 === 0) this.gaslightTime++;
+        // if (p.frameCount % 60 === 0) this.gaslightTime++;
 
         if (this.gaslightTime === 3) {
           this.pose = 0;
@@ -157,7 +151,7 @@ export class Cassie {
           p.push();
           p.scale(-1, 1);
           p.image(this.gunImg, this.xPlayer2 * -1, this.y);
-          p.pop()
+          p.pop();
         }
         break;
 
@@ -167,86 +161,81 @@ export class Cassie {
         }
 
         if (this.player === 2) {
-          p.push()
-          p.scale(-1, 1)
-          p.image(this.shield, this.xPlayer2 * -1, this.y)
-          p.pop()
+          p.push();
+          p.scale(-1, 1);
+          p.image(this.shield, this.xPlayer2 * -1, this.y);
+          p.pop();
         }
         break;
-
     }
 
     if (p.frameCount % 60 === 0) {
-        this.atackedAnimationTime++;
-        this.gaslightTime++;
+      this.atackedAnimationTime++;
+      this.gaslightTime++;
 
       if (this.coolDownGaslight < 30) {
-        this.coolDownGaslight++
-
+        this.coolDownGaslight++;
       }
-      
-    };
+    }
 
-    this.bullets.forEach(stars => {
+    this.bullets.forEach((stars) => {
       stars.draw(p);
       if (stars.x < this.bulletTarget() && this.player === 1) {
-       maddy.wounded(15);
+        maddy.wounded(15);
         this.bullets = [];
-
       }
 
       if (stars.x > this.bulletTarget() && this.player === 2) {
-       maddy.wounded(15);
+        maddy.wounded(15);
         this.bullets = [];
-
       }
-    })
+    });
 
     if (this.pose === 2) {
-     maddy.wounded(0.5);
+      maddy.wounded(0.5);
     }
 
-    if(this.player==2 && p.keyIsDown(88)){
-        this.pose=4;
+    if (this.player == 2 && p.keyIsDown(88)) {
+      this.pose = 4;
     }
 
-    if(this.player==1 && p.keyIsDown(77)){
-        this.pose=4;
+    if (this.player == 1 && p.keyIsDown(77)) {
+      this.pose = 4;
     }
-    if(this.randomPower){
-      p.image(this.random,960,p.height/2)
-      if(this.random.getCurrentFrame()===this.random.numFrames()){
-        this.random.pause()
+    if (this.randomPower) {
+      p.image(this.random, 960, p.height / 2);
+      if (this.random.getCurrentFrame() === this.random.numFrames()) {
+        this.random.pause();
       }
       maddy.wounded(1);
-      if(this.atackedAnimationTime==2){
-        this.random.play()
-        this.randomPower=false;
+      if (this.atackedAnimationTime == 2) {
+        this.random.play();
+        this.randomPower = false;
       }
     }
   }
 
-
-  getRealHealth(){
-    return this.health - this.damage
+  getRealHealth() {
+    return this.health - this.damage;
   }
+
   drawOverTable(p: p5) {
-    let gaslightCharging: number = p.map(this.coolDownGaslight, 0, 30, 0, 100);
+    const gaslightCharging: number = p.map(this.coolDownGaslight, 0, 30, 0, 100);
     switch (this.player) {
       case 1:
-        p.fill("#abebef")
-        p.rect(1700, 290 + this.damage, 114,  this.getRealHealth());
+        p.fill('#abebef');
+        p.rect(1700, 290 + this.damage, 114, this.getRealHealth());
         p.image(this.bar, 1755, 329);
         p.image(this.gunB, 1430, 947);
         p.image(this.gaslightB, 1590, 947);
         p.rect(1542, 1038, gaslightCharging, 20);
         p.image(this.randomB, 1750, 947);
-        
+
         break;
 
       case 2:
 
-        p.fill("#abebef")
+        p.fill('#abebef');
         p.rect(94, 290 + this.damage, 114, this.getRealHealth());
         p.image(this.bar, 151, 329);
         p.image(this.gunB, 461, 947);
@@ -267,23 +256,20 @@ export class Cassie {
 
         case p.RIGHT_ARROW:
           if (this.coolDownGaslight >= 30) {
-              this.gaslightTime=0;
+            this.gaslightTime = 0;
             this.pose = 2;
           }
 
-
           break;
 
-          case p.DOWN_ARROW:
-            this.randomPower=true;
-            this.atackedAnimationTime=0;
-            break;
-
+        case p.DOWN_ARROW:
+          this.randomPower = true;
+          this.atackedAnimationTime = 0;
+          break;
 
         case 77:
           this.pose = 4;
           break;
-
       }
     }
 
@@ -291,9 +277,9 @@ export class Cassie {
       switch (p.keyCode) {
         case 65:
           if (this.coolDownGaslight >= 30) {
-            this.gaslightTime=0;
-          this.pose = 2;
-        }
+            this.gaslightTime = 0;
+            this.pose = 2;
+          }
 
           break;
 
@@ -302,44 +288,36 @@ export class Cassie {
 
           break;
 
-          
-          case 83:
-            this.randomPower=true;
-            this.atackedAnimationTime=0;
-            break;
-
+        case 83:
+          this.randomPower = true;
+          this.atackedAnimationTime = 0;
+          break;
       }
-
     }
-
 
     this.shoot(p);
   }
 
-
   wounded(damageAmount: number) {
     if (this.pose !== 4) {
-      this.damage = this.damage + damageAmount;
+      this.damage += damageAmount;
       this.atackedAnimationTime = 0;
       this.pose = 1;
     }
   }
 
   shoot(p: p5) {
-
     if (this.pose === 3 && this.bullets.length === 0) {
       switch (this.player) {
-
         case 1:
           if (p.keyCode === p.UP_ARROW) {
-            this.bullets.push(new Bullet(p, this.player, this.glitterBullet, this.xPlayer1, 496))
+            this.bullets.push(new Bullet(p, this.player, this.glitterBullet, this.xPlayer1, 496));
           }
           break;
 
         case 2:
           if (p.keyCode === 87) {
-            this.bullets.push(new Bullet(p, this.player, this.glitterBullet, this.xPlayer2, 496))
-
+            this.bullets.push(new Bullet(p, this.player, this.glitterBullet, this.xPlayer2, 496));
           }
           break;
       }
@@ -348,16 +326,15 @@ export class Cassie {
 
   bulletTarget() {
     if (this.player === 1) return 725;
-    else return 1335;
-
+    return 1335;
   }
 
-  keyReleased(p:p5){
-    if(this.player===1 && p.keyCode===77){
-        this.pose=0
+  keyReleased(p:p5) {
+    if (this.player === 1 && p.keyCode === 77) {
+      this.pose = 0;
     }
-    if(this.player===2 && p.keyCode===88){
-        this.pose=0
+    if (this.player === 2 && p.keyCode === 88) {
+      this.pose = 0;
     }
   }
 }

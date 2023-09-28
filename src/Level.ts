@@ -1,11 +1,10 @@
-import p5 from "p5";
+import p5 from 'p5';
 import {
-  Cassie
-} from "./Cassie";
+  Cassie,
+} from './Cassie';
 import {
-  Maddy
-} from "./Maddy";
-
+  Maddy,
+} from './Maddy';
 
 export class Level {
   player1Choice: string;
@@ -50,7 +49,6 @@ export class Level {
     player2: number
   };
 
-
   constructor(
     p: p5,
     score: {
@@ -58,7 +56,7 @@ export class Level {
       player2: number
     },
     player1Choice: string,
-    overBackground: string = " ",
+    overBackground: string = ' ',
     bg: string,
     maddyPose: string,
     maddyAtacked: string,
@@ -68,15 +66,15 @@ export class Level {
     cassieAtacked: string,
     cassieGaslight: string,
     cassieGun: string,
-    maddyLifeBar: string = "",
-    maddyLipstickB: string = "",
-    maddyWhipB: string = "",
-    maddyRandomB: string = "",
+    maddyLifeBar: string = '',
+    maddyLipstickB: string = '',
+    maddyWhipB: string = '',
+    maddyRandomB: string = '',
 
-    cassieBar: string = "",
-    cassieGaslightB: string = "",
-    cassieGunB: string = "",
-    cassieRandomB: string = "",
+    cassieBar: string = '',
+    cassieGaslightB: string = '',
+    cassieGunB: string = '',
+    cassieRandomB: string = '',
 
     maddyBullets: string,
     cassieBullet: string,
@@ -86,7 +84,7 @@ export class Level {
     maddyRandom: string,
     menuBUrl: string,
     menu: string,
-    cassieRandom: string
+    cassieRandom: string,
   ) {
     this.background = p.loadImage(bg);
     this.overBg = p.loadImage(overBackground);
@@ -115,18 +113,17 @@ export class Level {
     this.cassieRandomB = cassieRandomB;
     this.player1Choice = player1Choice;
 
-    this.gameOver = false
+    this.gameOver = false;
 
-    this.maddyRandom = maddyRandom
+    this.maddyRandom = maddyRandom;
 
     this.menuButton = p.loadImage(menuBUrl);
     this.menu = p.loadImage(menu);
     this.score = score;
 
-
     this.maddy = new Maddy(
       p,
-      this.player1Choice === "maddy" ? 1 : 2,
+      this.player1Choice === 'maddy' ? 1 : 2,
       950,
       maddyPose,
       maddyAtacked,
@@ -138,12 +135,12 @@ export class Level {
       maddyRandomB,
       maddyBullets,
       maddyShield,
-      maddyRandom);
-
+      maddyRandom,
+    );
 
     this.cassie = new Cassie(
       p,
-      this.player1Choice === "cassie" ? 1 : 2,
+      this.player1Choice === 'cassie' ? 1 : 2,
       950,
       cassiePose,
       cassieAtacked,
@@ -155,7 +152,8 @@ export class Level {
       cassieRandomB,
       cassieBullet,
       cassieShield,
-      cassieRandom);
+      cassieRandom,
+    );
   }
 
   draw(p: p5) {
@@ -170,9 +168,9 @@ export class Level {
     this.cassie.drawOverTable(p);
     p.textSize(45);
     p.fill(255);
-    p.text("Player 1", 1360, 60);
-    p.text("Player 2", 515, 60);
-    p.image(this.menuButton, p.width / 2, 980)
+    p.text('Player 1', 1360, 60);
+    p.text('Player 2', 515, 60);
+    p.image(this.menuButton, p.width / 2, 980);
 
     if (p.mouseIsPressed) {
       if (p.dist(p.mouseX, p.mouseY, p.width / 2, 980)) {
@@ -180,23 +178,23 @@ export class Level {
       }
     }
 
-    if(this.cassie.getRealHealth()<=0){
-      if(this.maddy.player===1){
-        this.score.player1 += 100
-      }else{
-        this.score.player2 +=100
+    if (this.cassie.getRealHealth() <= 0) {
+      if (this.maddy.player === 1) {
+        this.score.player1 += 100;
+      } else {
+        this.score.player2 += 100;
       }
-    
-      this.gameOver= true;
+
+      this.gameOver = true;
     }
 
-    if(this.maddy.getRealHealth()<=0){
-      if(this.cassie.player===1){
-        this.score.player1 += 100
-      }else{
-        this.score.player2 +=100
+    if (this.maddy.getRealHealth() <= 0) {
+      if (this.cassie.player === 1) {
+        this.score.player1 += 100;
+      } else {
+        this.score.player2 += 100;
       }
-      this.gameOver= true;
+      this.gameOver = true;
     }
   }
 
@@ -207,6 +205,6 @@ export class Level {
 
   keyReleased(p: p5) {
     this.cassie.keyReleased(p);
-    this.maddy.keyReleased(p)
+    this.maddy.keyReleased(p);
   }
 }
