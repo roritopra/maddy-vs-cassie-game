@@ -29,11 +29,11 @@ const sketch = (p: p5) => {
   p.setup = () => {
     p.createCanvas(1920, 1080);
 
-    imgStart = p.loadImage('/public/chooseCharacter/start.png');
+    imgStart = p.loadImage('/chooseCharacter/start.png');
 
     choose = new Screen(
       p,
-      '/public/chooseCharacter/choosingCharacter.png',
+      '/chooseCharacter/choosingCharacter.png',
     );
 
     screen = 0;
