@@ -141,7 +141,7 @@ const sketch = (p: p5) => {
       '/level1/maddylipstickGun.png',
       '/level1/maddywhip.png',
       '/level1/cassiepose.png',
-      '/level1/cassieEscala.gif',
+      '/level1/CassieEscala.gif',
       '/level1/cassieGaslight.gif',
       '/level1/cassieGlitterGun.png',
       '/level1/MaddyBar.png',
