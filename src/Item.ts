@@ -17,11 +17,11 @@ export class Item {
   velY: number;
 
   constructor(p:p5) {
-    this.cdUrl = '/public/level2/cd.png';
-    this.nailUrl = '/public/level2/nailposlish.png';
-    this.lipstickUrl = '/public/level2/lipstick.png';
-    this.sockUrl = '/public/level2/sock.png';
-    this.condomUrl = '/public/level2/condom.png';
+    this.cdUrl = '/level2/cd.png';
+    this.nailUrl = '/level2/nailposlish.png';
+    this.lipstickUrl = '/level2/lipstick.png';
+    this.sockUrl = '/level2/sock.png';
+    this.condomUrl = '/level2/condom.png';
     this.cd = p.loadImage(this.cdUrl);
     this.nail = p.loadImage(this.nailUrl);
     this.lipstick = p.loadImage(this.lipstickUrl);
